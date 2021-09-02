@@ -1,2 +1,1 @@
-# h.cnrad.dev
-new tab
+# new tab page
