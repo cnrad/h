@@ -18,9 +18,18 @@ export default function Home() {
                     <SearchInput placeholder="Search or enter address" onChange={(e) => {e.target.value}}/>
                 </Search>
 
-                
+                <PinnedSites>
+                    <Site />
+                    <Site />
+                    <Site />
+                    <Site />
+                    <Site />
+                    <Site />
+                    <Site />
+                    <Site />
+                </PinnedSites>
             </Main>
-            
+
             <Background />
         </Page>
         
@@ -87,6 +96,21 @@ const SearchInput = styled.input`
     outline: none;
     border: none;
     margin-left: 55px;
+`
+
+const PinnedSites = styled.div`
+    padding: 48px 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+`
+
+const Site = styled.div`
+    width: 75px;
+    height: 75px;
+    background: #555;
+    border-radius: 10px;
 `
 
 const Background = styled(motion.img)`
