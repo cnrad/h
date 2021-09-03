@@ -3,30 +3,78 @@ import { SearchGlass } from '../src/Icons'
 import styled from 'styled-components';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react';
+
+interface Parameters {
+    title?: string;
+    pinned?: string;
+}
+
+const mainVariants = {
+    init: {
+        opacity: 0
+    },
+    load: {
+        opacity: 1,
+        transition: {
+            duration: 0.1,
+            ease: "easeInOut",
+            staggerChildren: 0.15
+        }
+    }
+}
+
+const mainChildVariants = {
+    init: {
+        opacity: 0,
+        scale: 0.95
+    },
+    load: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.5,
+            ease: [0, 0.65, 0.8, 1]
+        }
+    }
+}
 
 export default function Home() {
 
+    const router = useRouter();
+    let params: Parameters = router.query;
+    console.log(router.query);
+
+    var [pinnedLinks, setPinnedLinks] = useState(["https://google.com"]);
+    var [title, setTitle] = useState("New Tab");
+
+    useEffect(() => {
+        if(params.pinned !== undefined) setPinnedLinks((params.pinned as string).split(','));
+        if(params.title !== undefined) setTitle(params.title);
+        console.log(pinnedLinks);
+    }, [router.isReady])
+
+    console.log(params);
 
     return (
         <Page>
             <Widgets>
 
             </Widgets>
-            <Main>
-                <Header>New Tab <span style={{color: "rgba(255, 255, 255, 0.3)", fontWeight: 400}}>- h.cnrad.dev</span></Header>
-                <Search>
+            <Main initial="init" animate="load" variants={mainVariants}>
+                <Header variants={mainChildVariants}>{title} <span style={{color: "rgba(255, 255, 255, 0.3)", fontWeight: 400}}>- h.cnrad.dev</span></Header>
+                <Search variants={mainChildVariants}>
                     <SearchInput placeholder="Search or enter address" onChange={(e) => {e.target.value}}/>
                 </Search>
 
-                <PinnedSites>
-                    <Site />
-                    <Site />
-                    <Site />
-                    <Site />
-                    <Site />
-                    <Site />
-                    <Site />
-                    <Site />
+                <PinnedSites variants={mainChildVariants}>
+
+                    {pinnedLinks.map((link) => {
+                        if(!link.startsWith("https://") || !link.startsWith("http://")) return (<Site onClick={() => window.open("https://" + link)}/>)
+                        return (<Site onClick={() => window.open(link)}/>)
+                    })}
+
                 </PinnedSites>
             </Main>
 
@@ -36,12 +84,27 @@ export default function Home() {
     )
 }
 
+const Background = styled(motion.div)`
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background: #2B2A33;
+    outline: none;
+    border: none;
+    opacity: 1;
+    z-index: -10;
+`
+
 const Page = styled.div`
     background: #000;
     position: fixed;
     inset: 0;
     width: 100%;
     height: 100%;
+    outline: none;
+    border: none;
 
     display: flex;
     align-items: center;
@@ -54,7 +117,7 @@ const Widgets = styled.div`
     height: 100%;
 `
 
-const Main = styled.div`
+const Main = styled(motion.div)`
     width: 50%;
     height: 100%;
 
@@ -64,14 +127,14 @@ const Main = styled.div`
     flex-direction: column;
 `
 
-const Header = styled.h1`
+const Header = styled(motion.h1)`
     font-size: 2.25rem;
     font-family: "Poppins";
     font-weight: 600;
     color: #fff;
 `
 
-const Search = styled.div`
+const Search = styled(motion.div)`
     width: 60%;
     min-height: 52px;
     background: #38383D url(/search-glass.svg) 16px center no-repeat;
@@ -98,7 +161,7 @@ const SearchInput = styled.input`
     margin-left: 55px;
 `
 
-const PinnedSites = styled.div`
+const PinnedSites = styled(motion.div)`
     padding: 48px 0;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -109,20 +172,6 @@ const PinnedSites = styled.div`
 const Site = styled.div`
     width: 75px;
     height: 75px;
-    background: #555;
+    background: #3B3A43;
     border-radius: 10px;
 `
-
-const Background = styled(motion.img)`
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-
-    background: #2B2A33;
-    opacity: 1;
-    z-index: -10;
-`
-
-// background-image: url("https://source.unsplash.com/random/1920x1080/?sunset");
-// background-size: cover;
