@@ -58,29 +58,35 @@ export default function Home() {
     console.log(params);
 
     return (
-        <Page>
-            <Widgets>
-
-            </Widgets>
-            <Main initial="init" animate="load" variants={mainVariants}>
-                <Header variants={mainChildVariants}>{title} <span style={{color: "rgba(255, 255, 255, 0.3)", fontWeight: 400}}>- h.cnrad.dev</span></Header>
-                <Search variants={mainChildVariants}>
-                    <SearchInput placeholder="Search or enter address" onChange={(e) => {e.target.value}}/>
-                </Search>
-
-                <PinnedSites variants={mainChildVariants}>
-
-                    {pinnedLinks.map((link) => {
-                        if(!link.startsWith("https://") || !link.startsWith("http://")) return (<Site onClick={() => window.open("https://" + link)}/>)
-                        return (<Site onClick={() => window.open(link)}/>)
-                    })}
-
-                </PinnedSites>
-            </Main>
-
-            <Background />
-        </Page>
+        <>
+            <Head>
+                <title>{title} - h.cnrad.dev</title>
+            </Head>
+            <Page>
+                <Widgets>
         
+                </Widgets>
+                <Main initial="init" animate="load" variants={mainVariants}>
+                    <Header variants={mainChildVariants}>{title} <span style={{color: "rgba(255, 255, 255, 0.3)", fontWeight: 400}}>- h.cnrad.dev</span></Header>
+                    <Search variants={mainChildVariants}>
+                        <SearchInput placeholder="Search or enter address" onChange={(e) => {e.target.value}}/>
+                    </Search>
+        
+                    <PinnedSites variants={mainChildVariants}>
+        
+                        {pinnedLinks.map((link) => {
+                            
+                        
+                            if(!link.startsWith("https://") || !link.startsWith("http://")) return (<Site onClick={() => window.open("https://" + link)}/>)
+                            return (<Site onClick={() => window.open(link)}/>)
+                        })}
+    
+                    </PinnedSites>
+                </Main>
+                    
+                <Background />
+            </Page>
+        </>
     )
 }
 
