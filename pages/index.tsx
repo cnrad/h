@@ -64,26 +64,24 @@ export default function Home() {
             </Head>
             <Page>
                 <Widgets>
-        
+
                 </Widgets>
                 <Main initial="init" animate="load" variants={mainVariants}>
                     <Header variants={mainChildVariants}>{title} <span style={{color: "rgba(255, 255, 255, 0.3)", fontWeight: 400}}>- h.cnrad.dev</span></Header>
                     <Search variants={mainChildVariants}>
-                        <SearchInput placeholder="Search or enter address" onChange={(e) => {e.target.value}}/>
+                        <SearchInput placeholder="Search or enter address" onChange={(e) => {e.target.value}} onKeyDown={event => {if (event.key === 'Enter') return router.push(`https://search.balls.workers.dev/?q=${(event.target as HTMLInputElement).value}`)}}/>
                     </Search>
-        
+
                     <PinnedSites variants={mainChildVariants}>
-        
+
                         {pinnedLinks.map((link) => {
-                            
-                        
-                            if(!link.startsWith("https://") || !link.startsWith("http://")) return (<Site onClick={() => window.open("https://" + link)}/>)
-                            return (<Site onClick={() => window.open(link)}/>)
+                            if(!link.startsWith("https://") || !link.startsWith("http://")) return (<Site onClick={() => window.open("https://" + link)} image={`http://www.google.com/s2/favicons?domain=${link}`} />)
+                            return (<Site onClick={() => window.open(link)} image={`http://www.google.com/s2/favicons?domain=${link}`} />)
                         })}
-    
+
                     </PinnedSites>
                 </Main>
-                    
+
                 <Background />
             </Page>
         </>
@@ -175,9 +173,12 @@ const PinnedSites = styled(motion.div)`
     grid-row-gap: 30px;
 `
 
-const Site = styled.div`
+const Site = styled.div<{image: string}>`
     width: 75px;
     height: 75px;
     background: #3B3A43;
     border-radius: 10px;
+
+    background: url(${({ image }) => image});
+    background-size: cover;
 `
