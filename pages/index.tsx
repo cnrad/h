@@ -46,8 +46,8 @@ export default function Home() {
     let params: Parameters = router.query;
     console.log(router.query);
 
-    var [pinnedLinks, setPinnedLinks] = useState(["https://google.com"]);
-    var [title, setTitle] = useState("New Tab");
+    let [pinnedLinks, setPinnedLinks] = useState(["https://google.com"]);
+    let [title, setTitle] = useState("New Tab");
 
     useEffect(() => {
         if(params.pinned !== undefined) setPinnedLinks((params.pinned as string).split(','));
