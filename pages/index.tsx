@@ -97,7 +97,12 @@ export default function Home() {
                     <PinnedSites variants={mainChildVariants}>
 
                         {pinnedLinks.map((linkObj: BookmarkObj) => {
-                            return (<Site href={linkObj.url} image={linkObj.image} />)
+                            return (
+                                <Site href={linkObj.url} >
+                                    <SiteIcon image={linkObj.image}/>
+                                    <SiteName>{linkObj.name}</SiteName>
+                                </Site>
+                            )
                         })}
 
                     </PinnedSites>
@@ -194,10 +199,28 @@ const PinnedSites = styled(motion.div)`
     grid-row-gap: 30px;
 `
 
-const Site = styled.a<{image: string}>`
+const Site = styled.a`
+    width: 100px;
+    height: 125px;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+
+    &:hover {
+        background: #3B3A43;
+    }
+`
+
+const SiteIcon = styled.div<{image: string}>`
+    margin-top: 13px;
+    margin-bottom: 7px;
     width: 75px;
     height: 75px;
-    background: #3B3A43;
     border-radius: 10px;
     transition: all 0.2s ease-in-out;
 
@@ -208,4 +231,13 @@ const Site = styled.a<{image: string}>`
     &:hover {
         filter: drop-shadow(0 0 2px #fff)
     }
+`
+
+const SiteName = styled.div`
+    font-size: 0.75rem;
+    color: #fff;
+    width: 80px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
 `
