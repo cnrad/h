@@ -64,7 +64,7 @@ export default function Home() {
         const bookmarks = async () => {
             if (!params.pinned) return;
             
-            let fetchPinned = (await axios.get(params.pinned)) as any;
+            let fetchPinned = (await axios.get(params.pinned));
             console.log(fetchPinned);
 
             const pinnedJson = (fetchPinned.data as BookmarkObj[]);
