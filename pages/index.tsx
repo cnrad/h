@@ -11,6 +11,12 @@ interface Parameters {
     pinned?: string;
 }
 
+interface BookmarkObj {
+    url: string;
+    image: string;
+    name: string;
+}
+
 const mainVariants = {
     init: {
         opacity: 0
@@ -46,13 +52,29 @@ export default function Home() {
     let params: Parameters = router.query;
     console.log(router.query);
 
-    let [pinnedLinks, setPinnedLinks] = useState(["https://google.com"]);
+    let [pinnedLinks, setPinnedLinks] = useState([{
+        "name": "This Repo",
+        "url": "https://github.com/cnrad/h.cnrad.dev",
+        "image": "https://www.macobserver.com/wp-content/uploads/2019/05/workfeatured-GitHub-2.png"
+    }]);
+    
     let [title, setTitle] = useState("New Tab");
 
     useEffect(() => {
-        if(params.pinned !== undefined) setPinnedLinks((params.pinned as string).split(','));
+        const bookmarks = async () => {
+            if (!params.pinned) return;
+            
+            let fetchPinned = (await axios.get(params.pinned)) as any;
+            console.log(fetchPinned);
+
+            const pinnedJson = (fetchPinned.data as BookmarkObj[]);
+            setPinnedLinks(pinnedJson);
+        };
+
+        bookmarks();
+
         if(params.title !== undefined) setTitle(params.title);
-        console.log(pinnedLinks);
+        
     }, [router.isReady])
 
     console.log(params);
@@ -74,9 +96,8 @@ export default function Home() {
 
                     <PinnedSites variants={mainChildVariants}>
 
-                        {pinnedLinks.map((link) => {
-                            if(!link.startsWith("https://") || !link.startsWith("http://")) return (<Site onClick={() => window.open("https://" + link)} image={`http://www.google.com/s2/favicons?domain=${link}`} />)
-                            return (<Site onClick={() => window.open(link)} image={`http://www.google.com/s2/favicons?domain=${link}`} />)
+                        {pinnedLinks.map((linkObj: BookmarkObj) => {
+                            return (<Site href={linkObj.url} image={linkObj.image} />)
                         })}
 
                     </PinnedSites>
@@ -173,12 +194,18 @@ const PinnedSites = styled(motion.div)`
     grid-row-gap: 30px;
 `
 
-const Site = styled.div<{image: string}>`
+const Site = styled.a<{image: string}>`
     width: 75px;
     height: 75px;
     background: #3B3A43;
     border-radius: 10px;
+    transition: all 0.2s ease-in-out;
 
     background: url(${({ image }) => image});
     background-size: cover;
+    background-position: 50% 50%;
+
+    &:hover {
+        filter: drop-shadow(0 0 2px #fff)
+    }
 `
