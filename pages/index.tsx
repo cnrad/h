@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 interface Parameters {
     title?: string;
     pinned?: string;
+    background?: string;
 }
 
 interface BookmarkObj {
@@ -59,6 +60,7 @@ export default function Home() {
     }]);
     
     let [title, setTitle] = useState("New Tab");
+    let [background, setBackground] = useState("none");
 
     useEffect(() => {
         const bookmarks = async () => {
@@ -73,7 +75,8 @@ export default function Home() {
 
         bookmarks();
 
-        if(params.title !== undefined) setTitle(params.title);
+        if(params.title) setTitle(params.title);
+        if(params.background) setBackground(params.background);
         
     }, [router.isReady])
 
@@ -108,19 +111,23 @@ export default function Home() {
                     </PinnedSites>
                 </Main>
 
-                <Background />
+                <Background bgParam={background}/>
             </Page>
         </>
     )
 }
 
-const Background = styled(motion.div)`
+const Background = styled(motion.div)<{bgParam: string}>`
     position: fixed;
     inset: 0;
     width: 100vw;
     height: 100vh;
 
-    background: #2B2A33;
+    background: ${({bgParam}) => bgParam === "none" ? "#2B2A33" : (bgParam.startsWith("http") ? `url(${bgParam})` : bgParam)};
+    background-size: cover;
+    background-position: 50% 50%;
+    filter: brightness(30%);
+
     outline: none;
     border: none;
     opacity: 1;
