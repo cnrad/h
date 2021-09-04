@@ -204,7 +204,7 @@ const Site = styled.a`
     height: 125px;
     background: rgba(0, 0, 0, 0);
     border-radius: 10px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.15s ease-in-out;
 
     display: flex;
     flex-direction: column;
@@ -222,15 +222,10 @@ const SiteIcon = styled.div<{image: string}>`
     width: 75px;
     height: 75px;
     border-radius: 10px;
-    transition: all 0.2s ease-in-out;
 
     background: url(${({ image }) => image});
     background-size: cover;
     background-position: 50% 50%;
-
-    &:hover {
-        filter: drop-shadow(0 0 2px #fff)
-    }
 `
 
 const SiteName = styled.div`
