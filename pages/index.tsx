@@ -64,10 +64,12 @@ export default function Home() {
         const bookmarks = async () => {
             if (!params.pinned) return;
             
-            let fetchPinned = (await axios.get(params.pinned));
+            let fetchPinned = await fetch(params.pinned, {
+                mode: "no-cors",
+            }) as any;
             console.log(fetchPinned);
 
-            const pinnedJson = (fetchPinned.data as BookmarkObj[]);
+            const pinnedJson = fetchPinned.data as BookmarkObj[];
             setPinnedLinks(pinnedJson);
         };
 
