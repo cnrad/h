@@ -232,6 +232,8 @@ const SiteName = styled.div`
     font-size: 0.75rem;
     color: #fff;
     width: 80px;
+    max-height: 2rem;
+    white-space: nowrap;
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
