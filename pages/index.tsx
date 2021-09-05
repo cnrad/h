@@ -106,7 +106,7 @@ export default function Home() {
 
                         {pinnedLinks.map((linkObj: BookmarkObj) => {
                             return (
-                                <Site href={linkObj.url} >
+                                <Site href={linkObj.url} key={linkObj.url}>
                                     <SiteIcon image={linkObj.image}/>
                                     <SiteName>{linkObj.name}</SiteName>
                                 </Site>
