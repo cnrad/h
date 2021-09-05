@@ -72,7 +72,7 @@ export default function Home() {
             const pinnedJson = fetchPinned.data as BookmarkObj[];
             setPinnedLinks(pinnedJson);
 
-            axios.get("/api/fetchIp").then(res => setUserIp(res.data));
+            axios.get("/api/fetchIp").then(res => console.log(res.data));
 
         };
 

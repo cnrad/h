@@ -7,5 +7,6 @@ type Data = {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     console.log(req.headers);
-    return res.status(200).json({ data: req["headers"]["x-real-ip"] as string})
+    if(req["headers"]["x-real-ip"]) return res.status(200).json({ data: req["headers"]["x-real-ip"] as string})
+    return res.status(400).json({ data: "IP not found"})
 }
