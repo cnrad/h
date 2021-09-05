@@ -61,26 +61,29 @@ export default function Home() {
     
     let [title, setTitle] = useState("New Tab");
     let [background, setBackground] = useState("none");
+    let [userIp, setUserIp] = useState("127.0.0.1");
 
     useEffect(() => {
-        const bookmarks = async () => {
+        const fetchAxios = async () => {
             if (!params.pinned) return;
             
             let fetchPinned = await axios.get(params.pinned) as any;
-            console.log(fetchPinned);
 
             const pinnedJson = fetchPinned.data as BookmarkObj[];
             setPinnedLinks(pinnedJson);
+
+            axios.get("/api/fetchIp").then(res => setUserIp(res.data));
+
         };
 
-        bookmarks();
+        fetchAxios();
 
         if(params.title) setTitle(params.title);
         if(params.background) setBackground(params.background);
         
     }, [router.isReady])
 
-    console.log(params);
+    // console.log(userIp);
 
     return (
         <>
@@ -89,7 +92,9 @@ export default function Home() {
             </Head>
             <Page>
                 <Widgets>
-
+                    <WeatherWidget>
+    
+                    </WeatherWidget>
                 </Widgets>
                 <Main initial="init" animate="load" variants={mainVariants}>
                     <Header variants={mainChildVariants}>{title} <span style={{color: "rgba(255, 255, 255, 0.3)", fontWeight: 400}}>- h.cnrad.dev</span></Header>
@@ -126,7 +131,7 @@ const Background = styled(motion.div)<{bgParam: string}>`
     background: ${({bgParam}) => bgParam === "none" ? "#2B2A33" : (bgParam.startsWith("http") ? `url(${bgParam})` : bgParam)};
     background-size: cover;
     background-position: 50% 50%;
-    filter: brightness(30%);
+    ${({bgParam}) => bgParam.startsWith("http") ? `filter: brightness(30%);` : ``};
 
     outline: none;
     border: none;
@@ -152,11 +157,18 @@ const Page = styled.div`
 const Widgets = styled.div`
     width: 50%;
     height: 100%;
+    margin: 3rem;
+
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    flex-direction: column;
 `
 
 const Main = styled(motion.div)`
     width: 50%;
     height: 100%;
+    margin: 3rem;
 
     display: flex;
     align-items: start;
@@ -172,7 +184,7 @@ const Header = styled(motion.h1)`
 `
 
 const Search = styled(motion.div)`
-    width: 60%;
+    width: 70%;
     min-height: 52px;
     background: #38383D url(/search-glass.svg) 16px center no-repeat;
     border-radius: 7px;
@@ -181,6 +193,7 @@ const Search = styled(motion.div)`
     align-items: center;
     justify-content: start;
     flex-direction: row;
+    transition: all 0.15s ease-in-out;
 
     box-shadow: 0 2px 6px rgba(28, 27, 34, 0.5);
 `
@@ -244,4 +257,12 @@ const SiteName = styled.div`
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
+`
+
+const WeatherWidget = styled.div`
+    width: 25rem;
+    height: 10rem;
+    
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 1.5rem;
 `
