@@ -61,7 +61,7 @@ export default function Home() {
     
     let [title, setTitle] = useState("New Tab");
     let [background, setBackground] = useState("none");
-    let [userIp, setUserIp] = useState("127.0.0.1");
+    let [userIp, setUserIp] = useState("IP not found");
 
     useEffect(() => {
         const fetchAxios = async () => {
@@ -72,8 +72,7 @@ export default function Home() {
             const pinnedJson = fetchPinned.data as BookmarkObj[];
             setPinnedLinks(pinnedJson);
 
-            axios.get("/api/fetchIp").then(res => console.log(res.data));
-
+            axios.get("http://api.ipify.org/?format=json").then(res => setUserIp(res.data.ip as string));
         };
 
         fetchAxios();
@@ -93,7 +92,7 @@ export default function Home() {
             <Page>
                 <Widgets>
                     <WeatherWidget>
-    
+                        {userIp}
                     </WeatherWidget>
                 </Widgets>
                 <Main initial="init" animate="load" variants={mainVariants}>
@@ -263,6 +262,11 @@ const WeatherWidget = styled.div`
     width: 25rem;
     height: 10rem;
     
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 1.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
 `
