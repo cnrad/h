@@ -29,7 +29,7 @@ const loadingWeatherObj = {
             "id": null,
             "main": "Loading...",
             "description": "Loading...",
-            "icon": null
+            "icon": "50d"
         }
     ],
     "base": null,
@@ -136,8 +136,11 @@ export default function Home() {
             <Page>
                 <Widgets>
                     <WeatherWidget>
-                        <Temp>{Math.floor(weatherObj.main.temp)}ºF</Temp>
-
+                        <WeatherIcon src={`http://openweathermap.org/img/wn/${weatherObj.weather[0].icon}@2x.png`} />
+                        <div style={{display: "flex", flexDirection: "column", alignItems: "start", justifyContent: "center"}}>
+                            <Temp>{Math.floor(weatherObj.main.temp)}ºF</Temp>
+                            <WeatherDescription>{weatherObj.weather[0].main}<span style={{color: "rgba(255, 255, 255, 0.6)", fontWeight: 400}}> - {weatherObj.weather[0].description}</span></WeatherDescription>
+                        </div>
                     </WeatherWidget>
                 </Widgets>
                 <Main initial="init" animate="load" variants={mainVariants}>
@@ -307,15 +310,29 @@ const WeatherWidget = styled.div`
     width: 25rem;
     height: 10rem;
     
-    background: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(#7dc7ff, #3e67ed);
     border-radius: 1.5rem;
 
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     color: #fff;
 `
 const Temp = styled.div`
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 2rem;
+    font-weight: 600;
+`
+
+const WeatherDescription = styled.div`
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 500;
+`
+
+const WeatherIcon = styled.img`
+    width: 125px;
+    height: 125px;
+    filter: drop-shadow(0 0 5px #fff)
 `
