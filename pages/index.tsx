@@ -5,6 +5,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react';
+import getWeather from "../src/utils/getWeather";
 
 interface Parameters {
     title?: string;
@@ -71,15 +72,22 @@ export default function Home() {
 
             const pinnedJson = fetchPinned.data as BookmarkObj[];
             setPinnedLinks(pinnedJson);
-
-            axios.get("http://api.ipify.org/?format=json").then(res => setUserIp(res.data.ip as string));
         };
 
+        console.log(getWeather());
+ 
         fetchAxios();
 
         if(params.title) setTitle(params.title);
         if(params.background) setBackground(params.background);
+
+        // axios.get("http://api.ipify.org/?format=json").then(res => {
+        //     setUserIp(res.data.ip as string);
+        //     console.log(getWeather(userIp))
+        // });
         
+
+
     }, [router.isReady])
 
     // console.log(userIp);
