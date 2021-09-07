@@ -19,6 +19,50 @@ interface BookmarkObj {
     name: string;
 }
 
+const loadingWeatherObj = {
+    "coord": {
+        "lon": null,
+        "lat": null
+    },
+    "weather": [
+        {
+            "id": null,
+            "main": "Loading...",
+            "description": "Loading...",
+            "icon": null
+        }
+    ],
+    "base": null,
+    "main": {
+        "temp": 0,
+        "feels_like": 0,
+        "temp_min": null,
+        "temp_max": null,
+        "pressure": null,
+        "humidity": null
+    },
+    "visibility": null,
+    "wind": {
+        "speed": null,
+        "deg": null
+    },
+    "clouds": {
+        "all": null
+    },
+    "dt": null,
+    "sys": {
+        "type": null,
+        "id": null,
+        "country": null,
+        "sunrise": null,
+        "sunset": null
+    },
+    "timezone": null,
+    "id": null,
+    "name": "Loading...",
+    "cod": null
+}
+
 const mainVariants = {
     init: {
         opacity: 0
@@ -52,7 +96,6 @@ export default function Home() {
 
     const router = useRouter();
     let params: Parameters = router.query;
-    console.log(router.query);
 
     let [pinnedLinks, setPinnedLinks] = useState([{
         "name": "This Repo",
@@ -63,34 +106,27 @@ export default function Home() {
     let [title, setTitle] = useState("New Tab");
     let [background, setBackground] = useState("none");
     let [userIp, setUserIp] = useState("IP not found");
+    let [weatherObj, setWeatherObj] = useState(loadingWeatherObj);
 
     useEffect(() => {
-        const fetchAxios = async () => {
+        const fetchStuff = async () => {
             if (!params.pinned) return;
             
             let fetchPinned = await axios.get(params.pinned) as any;
 
             const pinnedJson = fetchPinned.data as BookmarkObj[];
             setPinnedLinks(pinnedJson);
-        };
 
-        console.log(getWeather());
+            let currentWeather = await getWeather();
+            setWeatherObj(currentWeather);
+        };
  
-        fetchAxios();
+        fetchStuff();
 
         if(params.title) setTitle(params.title);
         if(params.background) setBackground(params.background);
 
-        // axios.get("http://api.ipify.org/?format=json").then(res => {
-        //     setUserIp(res.data.ip as string);
-        //     console.log(getWeather(userIp))
-        // });
-        
-
-
     }, [router.isReady])
-
-    // console.log(userIp);
 
     return (
         <>
@@ -100,7 +136,8 @@ export default function Home() {
             <Page>
                 <Widgets>
                     <WeatherWidget>
-                        {userIp}
+                        <Temp>{Math.floor(weatherObj.main.temp)}ºF</Temp>
+
                     </WeatherWidget>
                 </Widgets>
                 <Main initial="init" animate="load" variants={mainVariants}>
@@ -277,4 +314,8 @@ const WeatherWidget = styled.div`
     align-items: center;
     justify-content: center;
     color: #fff;
+`
+const Temp = styled.div`
+    color: #fff;
+    font-size: 1.1rem;
 `
