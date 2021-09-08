@@ -110,7 +110,7 @@ export default function Home() {
     let [time, setTime] = useState("00:00:00 p.m.");
 
     function getTime(){
-        let current = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+        let current = new Date().toLocaleString('en-US');
         setTime(current.toLowerCase().slice(-11, -1) + ".m.");
         setTimeout(getTime, 1000);
     }
