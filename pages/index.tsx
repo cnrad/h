@@ -141,6 +141,8 @@ export default function Home() {
         getTime();
     }, [])
 
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
     return (
         <>
             <Head>
@@ -157,7 +159,7 @@ export default function Home() {
                             }
                         </TimeSubtitle>
 
-                        <Time>{time.slice(0, -4)}
+                        <Time>{days[new Date().getDay()]} • {time.slice(0, -4)}
                             <AmPm>{time.slice(-4).toUpperCase()}</AmPm>
                         </Time>  
                     </TimeWidget>
@@ -358,11 +360,13 @@ const WeatherDescription = styled.div`
     color: #fff;
     font-size: 1.25rem;
     font-weight: 500;
+    width: 16rem;
 `
 
 const WeatherIcon = styled.img`
-    width: 125px;
-    height: 125px;
+    margin-right: 10px;
+    width: 100px;
+    height: 100px;
     filter: drop-shadow(0 0 5px #fff)
 `
 
@@ -389,12 +393,19 @@ const TimeWidget = styled.div`
     }
 `
 
+const TimeSubtitle = styled.div`
+    color: #fff;
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.035rem;
+`
+
 const Time = styled.div`
     color: #fff;
     font-size: 1.35rem;
-    font-weight: 400;
+    font-weight: 300;
 
-    width: 10rem;
+    width: 20rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -403,14 +414,7 @@ const Time = styled.div`
 
 const AmPm = styled.div`
     margin-left: 0.5rem;
-    color: #fff;
+    color: #e6e6e6;
     font-size: 1.2rem;
     font-weight: 300;
-`
-
-const TimeSubtitle = styled.div`
-    color: #fff;
-    font-size: 1.75rem;
-    font-weight: 600;
-    letter-spacing: 0.035rem;
 `
