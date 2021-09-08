@@ -149,16 +149,17 @@ export default function Home() {
             <Page>
                 <Widgets>
                     <TimeWidget>
-                        <Time>{time.slice(0, -4)}
-                            <AmPm>{time.slice(-4).toUpperCase()}</AmPm>
-                        </Time>
                         <TimeSubtitle>
                             {
                                 time.slice(-4).startsWith("a") 
-                                    ? parseInt(time.slice(0, -11)) < 12 ? "Good morning" : "Good afternoon"
-                                    : parseInt(time.slice(0, -11)) < 4 ? "Good afternoon" : "Good evening"
+                                    ? parseInt(time.slice(0, -11)) < 12 ? "Good morning." : "Good afternoon."
+                                    : parseInt(time.slice(0, -11)) < 4 ? "Good afternoon." : "Good evening."
                             }
                         </TimeSubtitle>
+
+                        <Time>{time.slice(0, -4)}
+                            <AmPm>{time.slice(-4).toUpperCase()}</AmPm>
+                        </Time>  
                     </TimeWidget>
                     <WeatherWidget time={time.slice(-4)}>
                         <WeatherIcon src={`http://openweathermap.org/img/wn/${weatherObj.weather[0].icon}@2x.png`} />
@@ -390,8 +391,8 @@ const TimeWidget = styled.div`
 
 const Time = styled.div`
     color: #fff;
-    font-size: 1.75rem;
-    font-weight: 500;
+    font-size: 1.35rem;
+    font-weight: 400;
 
     width: 10rem;
     display: flex;
@@ -403,13 +404,13 @@ const Time = styled.div`
 const AmPm = styled.div`
     margin-left: 0.5rem;
     color: #fff;
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     font-weight: 300;
 `
 
 const TimeSubtitle = styled.div`
     color: #fff;
-    font-size: 1.25rem;
-    font-weight: 300;
+    font-size: 1.75rem;
+    font-weight: 600;
     letter-spacing: 0.035rem;
 `
