@@ -107,6 +107,13 @@ export default function Home() {
     let [background, setBackground] = useState("none");
     let [userIp, setUserIp] = useState("IP not found");
     let [weatherObj, setWeatherObj] = useState(loadingWeatherObj);
+    let [time, setTime] = useState("00:00:00 p.m.");
+
+    function getTime(){
+        let current = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+        setTime(current.toLowerCase().slice(-11, -1) + ".m.");
+        setTimeout(getTime, 1000);
+    }
 
     useEffect(() => {
         const fetchStuff = async () => {
@@ -116,9 +123,6 @@ export default function Home() {
 
             const pinnedJson = fetchPinned.data as BookmarkObj[];
             setPinnedLinks(pinnedJson);
-
-            let currentWeather = await getWeather();
-            setWeatherObj(currentWeather);
         };
  
         fetchStuff();
@@ -128,6 +132,15 @@ export default function Home() {
 
     }, [router.isReady])
 
+    useEffect(() => {
+        (async function() {
+            let currentWeather = await getWeather();
+            setWeatherObj(currentWeather);
+        }())
+        
+        getTime();
+    }, [])
+
     return (
         <>
             <Head>
@@ -135,7 +148,19 @@ export default function Home() {
             </Head>
             <Page>
                 <Widgets>
-                    <WeatherWidget>
+                    <TimeWidget>
+                        <Time>{time.slice(0, -4)}
+                            <AmPm>{time.slice(-4).toUpperCase()}</AmPm>
+                        </Time>
+                        <TimeSubtitle>
+                            {
+                                time.slice(-4).startsWith("a") 
+                                    ? parseInt(time.slice(0, -11)) < 12 ? "Good morning" : "Good afternoon"
+                                    : parseInt(time.slice(0, -11)) < 4 ? "Good afternoon" : "Good evening"
+                            }
+                        </TimeSubtitle>
+                    </TimeWidget>
+                    <WeatherWidget time={time.slice(-4)}>
                         <WeatherIcon src={`http://openweathermap.org/img/wn/${weatherObj.weather[0].icon}@2x.png`} />
                         <div style={{display: "flex", flexDirection: "column", alignItems: "start", justifyContent: "center"}}>
                             <Temp>{Math.floor(weatherObj.main.temp)}ºF</Temp>
@@ -306,12 +331,14 @@ const SiteName = styled.div`
     overflow: hidden;
 `
 
-const WeatherWidget = styled.div`
+const WeatherWidget = styled.div<{time: string}>`
+    margin: 1rem;
     width: 25rem;
     height: 10rem;
     
-    background: linear-gradient(#7dc7ff, #3e67ed);
+    background: ${({time}) => time.startsWith("a") ? 'linear-gradient(#7dc7ff, #3e67ed)' : 'linear-gradient(#152853, #040c24)'};
     border-radius: 1.5rem;
+    filter: drop-shadow(3px 3px 0.35rem rgba(0, 0, 0, 0.3));
 
     display: flex;
     flex-direction: row;
@@ -319,6 +346,7 @@ const WeatherWidget = styled.div`
     justify-content: center;
     color: #fff;
 `
+
 const Temp = styled.div`
     color: #fff;
     font-size: 2rem;
@@ -335,4 +363,53 @@ const WeatherIcon = styled.img`
     width: 125px;
     height: 125px;
     filter: drop-shadow(0 0 5px #fff)
+`
+
+const TimeWidget = styled.div`
+    margin: 1rem;
+    width: 25rem;
+    height: 10rem;
+    
+    background: #000;
+    border-radius: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 400;
+
+    filter: drop-shadow(3px 3px 0.35rem rgba(0, 0, 0, 0.3));
+
+    & > * {
+        margin-left: 2rem;
+    }
+`
+
+const Time = styled.div`
+    color: #fff;
+    font-size: 1.75rem;
+    font-weight: 500;
+
+    width: 10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+`
+
+const AmPm = styled.div`
+    margin-left: 0.5rem;
+    color: #fff;
+    font-size: 1.35rem;
+    font-weight: 300;
+`
+
+const TimeSubtitle = styled.div`
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 0.035rem;
 `
