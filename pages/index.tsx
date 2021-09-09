@@ -339,10 +339,6 @@ const WeatherWidget = styled.div<{time: string}>`
     width: 25rem;
     height: 10rem;
     
-    time.slice(-4).startsWith("a") 
-                                    ? parseInt(time.slice(0, -11)) < 12 ? "Good morning." : "Good afternoon."
-                                    : parseInt(time.slice(0, -11)) < 4 ? "Good afternoon." : "Good evening."
-    
     background: ${({time}) => time.slice(-4).startsWith("a")
         ? parseInt(time.slice(0, -11)) < 5 ? 'linear-gradient(#152853, #040c24)' : 'linear-gradient(#7dc7ff, #3e67ed)'
         : parseInt(time.slice(0, -11)) < 6 ? 'linear-gradient(#7dc7ff, #3e67ed)' : 'linear-gradient(#152853, #040c24)'
