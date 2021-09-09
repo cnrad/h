@@ -163,7 +163,7 @@ export default function Home() {
                             <AmPm>{time.slice(-4).toUpperCase()}</AmPm>
                         </Time>  
                     </TimeWidget>
-                    <WeatherWidget time={time.slice(-4)}>
+                    <WeatherWidget time={time}>
                         <WeatherIcon src={`http://openweathermap.org/img/wn/${weatherObj.weather[0].icon}@2x.png`} />
                         <div style={{display: "flex", flexDirection: "column", alignItems: "start", justifyContent: "center"}}>
                             <Temp>{Math.floor(weatherObj.main.temp)}ºF</Temp>
@@ -340,9 +340,9 @@ const WeatherWidget = styled.div<{time: string}>`
     height: 10rem;
     
     background: ${({time}) => time.slice(-4).startsWith("a")
-        ? parseInt(time.slice(0, -11)) < 5 ? 'linear-gradient(#152853, #040c24)' : 'linear-gradient(#7dc7ff, #3e67ed)'
-        : parseInt(time.slice(0, -11)) < 6 ? 'linear-gradient(#7dc7ff, #3e67ed)' : 'linear-gradient(#152853, #040c24)'
-    };
+        ? parseInt(time.slice(0, -11)) < 5 ? 'linear-gradient(#152853, #040c24);' : 'linear-gradient(#7dc7ff, #3e67ed);'
+        : parseInt(time.slice(0, -11)) < 6 ? 'linear-gradient(#7dc7ff, #3e67ed);' : 'linear-gradient(#152853, #040c24);'
+    }
     border-radius: 1.5rem;
     filter: drop-shadow(3px 3px 0.35rem rgba(0, 0, 0, 0.3));
 
