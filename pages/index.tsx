@@ -155,7 +155,7 @@ export default function Home() {
                             {
                                 time.slice(-4).startsWith("a") 
                                     ? parseInt(time.slice(0, -11)) < 12 ? "Good morning." : "Good afternoon."
-                                    : parseInt(time.slice(0, -11)) < 4 ? "Good afternoon." : "Good evening."
+                                    : parseInt(time.slice(0, -11)) < 5 ? "Good afternoon." : "Good evening."
                             }
                         </TimeSubtitle>
 
@@ -343,7 +343,7 @@ const WeatherWidget = styled.div<{time: string}>`
         ? parseInt(time.slice(0, -11)) < 5 ? 'linear-gradient(#152853, #040c24);' : 'linear-gradient(#7dc7ff, #3e67ed);'
         : parseInt(time.slice(0, -11)) < 6 ? 'linear-gradient(#7dc7ff, #3e67ed);' : 'linear-gradient(#152853, #040c24);'
     }
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     filter: drop-shadow(3px 3px 0.35rem rgba(0, 0, 0, 0.3));
 
     display: flex;
@@ -379,7 +379,7 @@ const TimeWidget = styled.div`
     height: 10rem;
     
     background: #000;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
 
     display: flex;
     flex-direction: column;
