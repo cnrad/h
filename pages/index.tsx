@@ -119,12 +119,11 @@ export default function Home() {
         const fetchStuff = async () => {
             if (!params.pinned) return;
             
-            let fetchPinned = await axios.get(params.pinned) as any;
-
-            const pinnedJson = fetchPinned.data as BookmarkObj[];
-            setPinnedLinks(pinnedJson);
+            await fetch(`/api/fetchData?url=${params.pinned}`)
+            .then((res: any) => res.json())
+            .then((data: any) => setPinnedLinks(JSON.parse(data.body)));
         };
- 
+
         fetchStuff();
 
         if(params.title) setTitle(params.title);
@@ -292,9 +291,11 @@ const SearchInput = styled.input`
 const PinnedSites = styled(motion.div)`
     padding: 48px 0;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fill, 6.25rem);
     grid-column-gap: 30px;
     grid-row-gap: 30px;
+
+    width: 100%;
 `
 
 const Site = styled.a`

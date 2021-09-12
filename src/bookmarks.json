@@ -1,7 +1,7 @@
 [
     {
-      "name": "cnrad's GitHub",
-      "url": "https://github.com/cnrad",
+      "name": "GitHub",
+      "url": "https://github.com",
       "image": "https://www.sferalabs.cc/wp-content/uploads/github-logo-white.png"
     },
     {
@@ -10,8 +10,18 @@
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/YouTube_social_white_squircle_%282017%29.svg/1024px-YouTube_social_white_squircle_%282017%29.svg.png"
     },
     {
-        "name": "Really really really long name test for my site",
-        "url": "https://discord.com",
-        "image": "https://www.freepnglogos.com/uploads/discord-logo-png/concours-discord-cartes-voeux-fortnite-france-6.png"
+        "name": "Twitter",
+        "url": "https://twitter.com",
+        "image": "https://cdn-icons-png.flaticon.com/512/124/124021.png"
+    },
+    {
+        "name": "Mail",
+        "url": "https://mail.google.com",
+        "image": "https://t4techblog.com/wp-content/uploads/2020/10/workspace-new-gmail-icon-1024x1024.png"
+    },
+    {
+        "name": "Giggl",
+        "url": "https://canary.giggl.app",
+        "image": "https://pbs.twimg.com/profile_images/1411382142068723712/wV8pCLek.jpg"
     }
 ]
