@@ -6,16 +6,13 @@ async function getCoords() {
     let longitude: number = 0;
 
     await fetch("https://get.geojs.io/v1/ip/geo.json")
-        .then((res) => res.json())
-        .then((location) => {
-            latitude = location.latitude;
-            longitude = location.longitude;
+        .then(res => res.json())
+        .then((location: any) => {
+            latitude = Number(location.latitude);
+            longitude = Number(location.longitude);
+            console.log(location)
         })
-        .catch(() => {
-            latitude = 2345234523452354;
-            longitude = 2342345523423452345;
-        });
-    
+
     return { latitude, longitude };
 
 }

@@ -98,7 +98,7 @@ export default function Home() {
     let params: Parameters = router.query;
 
     let [pinnedLinks, setPinnedLinks] = useState([{
-        "name": "This Repo",
+        "name": "GitHub Repo",
         "url": "https://github.com/cnrad/h.cnrad.dev",
         "image": "https://www.macobserver.com/wp-content/uploads/2019/05/workfeatured-GitHub-2.png"
     }]);
