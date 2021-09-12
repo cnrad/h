@@ -174,7 +174,10 @@ export default function Home() {
                 <Main initial="init" animate="load" variants={mainVariants}>
                     <Header variants={mainChildVariants}>{title} <span style={{color: "rgba(255, 255, 255, 0.3)", fontWeight: 400}}>- h.cnrad.dev</span></Header>
                     <Search variants={mainChildVariants}>
-                        <SearchInput placeholder="Search or enter address" onChange={(e) => {e.target.value}} onKeyDown={event => {if (event.key === 'Enter') return router.push(`https://search.balls.workers.dev/?q=${(event.target as HTMLInputElement).value}`)}}/>
+                        <SearchInput placeholder="Search or enter address" onChange={(e) => {e.target.value}} onKeyDown={event => {
+                            if (event.key === 'Enter' && (event.target as HTMLInputElement).value.startsWith("https://")) return router.push((event.target as HTMLInputElement).value)
+                            if (event.key === 'Enter') return router.push(`https://search.balls.workers.dev/?q=${(event.target as HTMLInputElement).value}`)
+                        }}/>
                     </Search>
 
                     <PinnedSites variants={mainChildVariants}>
