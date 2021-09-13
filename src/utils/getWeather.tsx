@@ -5,9 +5,10 @@ async function getCoords() {
     let latitude: number = 0;
     let longitude: number = 0;
 
-    await fetch("https://get.geojs.io/v1/ip/geo.json")
+    await fetch(`/api/fetchData?url=https://get.geojs.io/v1/ip/geo.json`)
         .then(res => res.json())
-        .then((location: any) => {
+        .then((data: any) => {
+            let location = JSON.parse(data.body)
             latitude = Number(location.latitude);
             longitude = Number(location.longitude);
             console.log(location)
