@@ -148,8 +148,8 @@ export default function Home() {
                 <title>{title} - h.cnrad.dev</title>
             </Head>
             <Page>
-                <Widgets>
-                    <TimeWidget>
+                <Widgets initial="init" animate="load" variants={mainVariants}>
+                    <TimeWidget variants={mainChildVariants}>
                         <TimeSubtitle>
                             {
                                 time.slice(-4).startsWith("a") 
@@ -162,7 +162,7 @@ export default function Home() {
                             <AmPm>{time.slice(-4).toUpperCase()}</AmPm>
                         </Time>  
                     </TimeWidget>
-                    <WeatherWidget time={time}>
+                    <WeatherWidget time={time} variants={mainChildVariants}>
                         <WeatherIcon src={`http://openweathermap.org/img/wn/${weatherObj.weather[0].icon}@2x.png`} />
                         <div style={{display: "flex", flexDirection: "column", alignItems: "start", justifyContent: "center"}}>
                             <Temp>{Math.floor(weatherObj.main.temp)}ºF</Temp>
@@ -231,7 +231,7 @@ const Page = styled.div`
     flex-direction: row;
 `
 
-const Widgets = styled.div`
+const Widgets = styled(motion.div)`
     width: 50%;
     height: 100%;
     margin: 3rem;
@@ -338,7 +338,7 @@ const SiteName = styled.div`
     overflow: hidden;
 `
 
-const WeatherWidget = styled.div<{time: string}>`
+const WeatherWidget = styled(motion.div)<{time: string}>`
     margin: 1rem;
     width: 25rem;
     height: 10rem;
@@ -377,7 +377,7 @@ const WeatherIcon = styled.img`
     filter: drop-shadow(0 0 5px #fff)
 `
 
-const TimeWidget = styled.div`
+const TimeWidget = styled(motion.div)`
     margin: 1rem;
     width: 25rem;
     height: 10rem;
