@@ -229,6 +229,12 @@ const Page = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: row;
+
+
+    @media (max-width: 1000px) {
+        flex-direction: column-reverse;
+        overflow-y: scroll;
+    }
 `
 
 const Widgets = styled(motion.div)`
@@ -240,6 +246,12 @@ const Widgets = styled(motion.div)`
     align-items: end;
     justify-content: center;
     flex-direction: column;
+
+    @media (max-width: 1000px) {
+        align-items: center;
+        justify-content: start;
+        margin: 0 3rem;
+    }
 `
 
 const Main = styled(motion.div)`
@@ -251,6 +263,12 @@ const Main = styled(motion.div)`
     align-items: start;
     justify-content: center;
     flex-direction: column;
+
+    @media (max-width: 1000px) {
+        width: 70%;
+        align-items: center;
+        margin: 0 3rem;
+    }
 `
 
 const Header = styled(motion.h1)`
@@ -258,11 +276,16 @@ const Header = styled(motion.h1)`
     font-family: "Poppins";
     font-weight: 600;
     color: #fff;
+
+    @media (max-width: 1000px) {
+        text-align: center;
+    }
 `
 
 const Search = styled(motion.div)`
     width: 70%;
-    min-height: 52px;
+    min-height: 52px;    
+    min-width: 25rem;
     background: #38383D url(/search-glass.svg) 16px center no-repeat;
     border-radius: 7px;
 
@@ -273,6 +296,11 @@ const Search = styled(motion.div)`
     transition: all 0.15s ease-in-out;
 
     box-shadow: 0 2px 6px rgba(28, 27, 34, 0.5);
+
+    @media (max-width: 1000px) {
+        width: 100%;
+        min-width: 20rem;
+    }
 `
 
 const SearchInput = styled.input`
@@ -290,12 +318,18 @@ const SearchInput = styled.input`
 
 const PinnedSites = styled(motion.div)`
     padding: 48px 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 6.25rem);
-    grid-column-gap: 30px;
-    grid-row-gap: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+    width: 100%;    
 
-    width: 100%;
+    @media (max-width: 1000px) {
+        justify-content: center;
+        padding: 48px 0 24px 0;
+        width: 80vw;  
+    }
 `
 
 const Site = styled.a`
@@ -304,6 +338,7 @@ const Site = styled.a`
     background: rgba(0, 0, 0, 0);
     border-radius: 10px;
     transition: all 0.15s ease-in-out;
+    margin: 0 10px;
 
     display: flex;
     flex-direction: column;

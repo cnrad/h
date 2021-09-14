@@ -7,7 +7,6 @@ interface Data {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
     let url = req.query['url'] as string;
-    console.log(url);
 
     let data = await fetch(url)
         .then(res => res.json())
