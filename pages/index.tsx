@@ -323,7 +323,7 @@ const PinnedSites = styled(motion.div)`
     flex-wrap: wrap;
     align-items: center;
     justify-content: start;
-    width: 100%;    
+    width: 75%;    
 
     @media (max-width: 1000px) {
         justify-content: center;
@@ -338,7 +338,7 @@ const Site = styled.a`
     background: rgba(0, 0, 0, 0);
     border-radius: 10px;
     transition: all 0.15s ease-in-out;
-    margin: 0 10px;
+    margin: 0 20px 0 0;
 
     display: flex;
     flex-direction: column;
