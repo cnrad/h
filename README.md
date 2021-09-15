@@ -1,7 +1,7 @@
 # h.cnrad.dev
 
 [Example below](https://h.cnrad.dev/?title=Cool%20New%20Tab&pinned=https://raw.githubusercontent.com/cnrad/h.cnrad.dev/master/src/bookmarks.json&background=https://images.unsplash.com/photo-1418513110185-f0ec221e47b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80)
-![image](https://user-images.githubusercontent.com/83192247/132960763-737e73fb-5e68-4100-9766-96b9a8ce863d.png)
+![image](https://user-images.githubusercontent.com/83192247/133363590-ad8f619c-f3a1-4b53-bf46-eed7be94a6d1.png)
 
 ## Features
 
