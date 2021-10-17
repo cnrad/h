@@ -17,6 +17,9 @@ Set your own title by using the `title=:string` query parameter.
 ### Custom Background
 Set your own background using the `background=:link` query parameter. You can use a random image API as well, such as Unsplash, where you can specify parameters or keywords: `https://source.unsplash.com/random/1920x1080?sunset,night`
 
+### Custom Temperature Unit
+Set your temperature unit using either °C or °F using the `unit=:string` query parameter.
+
 ### Pinned Sites
 Link your own pinned sites by putting a link to a raw JSON file in the `pinned=:link` query parameter
 JSON must be an array with the following properties:
