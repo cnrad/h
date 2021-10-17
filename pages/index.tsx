@@ -11,6 +11,7 @@ interface Parameters {
     title?: string;
     pinned?: string;
     background?: string;
+    unit?: string;
 }
 
 interface BookmarkObj {
@@ -108,6 +109,7 @@ export default function Home() {
     let [userIp, setUserIp] = useState("IP not found");
     let [weatherObj, setWeatherObj] = useState(loadingWeatherObj);
     let [time, setTime] = useState("00:00:00 p.m.");
+    let [temperatureUnit, setTemperatureUnit] = useState("F");
 
     function getTime(){
         let current = new Date().toLocaleString('en-US');
@@ -128,6 +130,7 @@ export default function Home() {
 
         if(params.title) setTitle(params.title);
         if(params.background) setBackground(params.background);
+        if(params.unit) setTemperatureUnit(params.unit.toUpperCase());
 
     }, [router.isReady])
 
@@ -165,7 +168,7 @@ export default function Home() {
                     <WeatherWidget time={time} variants={mainChildVariants}>
                         <WeatherIcon src={`http://openweathermap.org/img/wn/${weatherObj.weather[0].icon}@2x.png`} />
                         <div style={{display: "flex", flexDirection: "column", alignItems: "start", justifyContent: "center"}}>
-                            <Temp>{Math.floor(weatherObj.main.temp)}ºF</Temp>
+                            <Temp>{temperatureUnit == "C" ? Math.floor((weatherObj.main.temp - 32 / 1.8)) : Math.floor(weatherObj.main.temp)}º{temperatureUnit}</Temp>
                             <WeatherDescription>{weatherObj.weather[0].main}<span style={{color: "rgba(255, 255, 255, 0.6)", fontWeight: 400}}> - {weatherObj.weather[0].description}</span></WeatherDescription>
                         </div>
                     </WeatherWidget>
