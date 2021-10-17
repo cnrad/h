@@ -11,7 +11,7 @@ interface Parameters {
     title?: string;
     pinned?: string;
     background?: string;
-    unit?: string;
+    unit?: "C" | "F";
 }
 
 interface BookmarkObj {
@@ -130,7 +130,7 @@ export default function Home() {
 
         if(params.title) setTitle(params.title);
         if(params.background) setBackground(params.background);
-        if(params.unit) setTemperatureUnit(params.unit.toUpperCase());
+        params.unit?.toUpperCase() == "C" ? setTemperatureUnit("C") : setTemperatureUnit("F");
 
     }, [router.isReady])
 
